@@ -1,6 +1,6 @@
 {
-    "name": "bus_ticket_app",
-    "short_name": "bus_ticket_app",
+    "name": "hamroBooking",
+    "short_name": "hamroBooking",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

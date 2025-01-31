@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = bus_ticket_app
+PRODUCT_NAME = hamroBooking
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.saurav.busTicketApp
+PRODUCT_BUNDLE_IDENTIFIER = com.samrat.hamroBooking
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2024 com.saurav. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024 com.samrat. All rights reserved.

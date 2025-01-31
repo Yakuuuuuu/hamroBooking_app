@@ -1,10 +1,9 @@
-import 'package:bus_ticket_app/app/shared_prefs/token_shared_prefs.dart';
-import 'package:bus_ticket_app/app/usecase/usecase.dart';
-import 'package:bus_ticket_app/core/error/failure.dart';
-import 'package:bus_ticket_app/features/auth/domain/repository/auth_repository.dart';
+import 'package:hamroBooking/app/shared_prefs/token_shared_prefs.dart';
+import 'package:hamroBooking/app/usecase/usecase.dart';
+import 'package:hamroBooking/core/error/failure.dart';
+import 'package:hamroBooking/features/auth/domain/repository/auth_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-
 
 class LoginParams extends Equatable {
   final String email;

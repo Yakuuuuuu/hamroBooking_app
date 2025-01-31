@@ -168,10 +168,10 @@ class _HomeViewState extends State<DashboardView> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  // Search Button
+                  // Search Button (Updated to Hotel Booking)
                   ElevatedButton(
                     onPressed: () {
-                      // Add search bus logic
+                      // Add hotel booking logic
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF57B660), // Green color
@@ -182,7 +182,7 @@ class _HomeViewState extends State<DashboardView> {
                     ),
                     child: const Center(
                       child: Text(
-                        "Search Bus",
+                        "Search Hotel", // Updated text
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
@@ -205,9 +205,9 @@ class _HomeViewState extends State<DashboardView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Destination 1
-                _buildDestinationCard("Chitwan", "12 bus a day"),
+                _buildDestinationCard("Chitwan", "12 hotel rooms available"),
                 // Destination 2
-                _buildDestinationCard("Butwal", "14 bus a day"),
+                _buildDestinationCard("Butwal", "14 hotel rooms available"),
               ],
             ),
           ],
@@ -216,7 +216,7 @@ class _HomeViewState extends State<DashboardView> {
     );
   }
 
-  Widget _buildDestinationCard(String destination, String busesPerDay) {
+  Widget _buildDestinationCard(String destination, String roomsAvailable) {
     return Container(
       width: 150,
       padding: const EdgeInsets.all(15),
@@ -243,7 +243,7 @@ class _HomeViewState extends State<DashboardView> {
           ),
           const SizedBox(height: 5),
           Text(
-            busesPerDay,
+            roomsAvailable,
             style: const TextStyle(
               fontSize: 14,
               color: Colors.grey,

@@ -17,21 +17,21 @@ class _OnboardingScreenState extends State<OnboardingView> {
   final List<Map<String, String>> _onboardingData = [
     {
       "image": "assets/images/welcome.png",
-      "title": "Welcome to BusSewa",
+      "title": "Welcome to hamroBooking",
       "description":
-          "Book your bus tickets seamlessly and travel with comfort. Your journey starts here!"
+          "Book your stays seamlessly with HamroBooking and enjoy a hassle-free experience!"
     },
     {
       "image": "assets/images/welcome2.png",
-      "title": "Easy Ticket Booking",
+      "title": "Find the Best Hotels",
       "description":
-          "Find and book bus tickets for any destination in just a few taps. Simple and hassle-free!"
+          "Discover top-rated hotels at unbeatable prices, tailored just for you."
     },
     {
       "image": "assets/images/welcome3.png",
-      "title": "Live Bus Tracking",
+      "title": "Instant Booking & Support",
       "description":
-          "Track your bus in real time and plan your journey with confidence. Never miss a ride!"
+          "Enjoy instant hotel bookings with 24/7 customer support at your service."
     },
   ];
 
@@ -65,7 +65,6 @@ class _OnboardingScreenState extends State<OnboardingView> {
                 },
               ),
             ),
-            // Progress Dots and Navigation
             _buildBottomSection(),
           ],
         ),
@@ -81,7 +80,7 @@ class _OnboardingScreenState extends State<OnboardingView> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        // Circular background and image
+        // Image with Circular Background
         Stack(
           alignment: Alignment.center,
           children: [
@@ -89,7 +88,7 @@ class _OnboardingScreenState extends State<OnboardingView> {
               height: 250,
               width: 250,
               decoration: BoxDecoration(
-                color: Colors.deepPurple.shade50,
+                color: Colors.orange.shade100,
                 shape: BoxShape.circle,
               ),
             ),
@@ -107,9 +106,9 @@ class _OnboardingScreenState extends State<OnboardingView> {
           title,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 24,
+            fontSize: 26,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Colors.deepOrange,
           ),
         ),
         // Description
@@ -120,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingView> {
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 16,
-              color: Colors.grey,
+              color: Colors.black54,
             ),
           ),
         ),
@@ -128,13 +127,12 @@ class _OnboardingScreenState extends State<OnboardingView> {
     );
   }
 
-  // Bottom Section for Progress and Button
   Widget _buildBottomSection() {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          // Progress Indicator Dots
+          // Progress Dots
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
@@ -149,16 +147,20 @@ class _OnboardingScreenState extends State<OnboardingView> {
             child: ElevatedButton(
               onPressed: () {
                 if (_currentPage == _onboardingData.length - 1) {
-                  context.read<OnboardingCubit>().init(context);
+                  _goToLoginPage(context);
                 } else {
                   _pageController.nextPage(
                     duration: const Duration(milliseconds: 300),
-                    curve: Curves.ease,
+                    curve: Curves.easeInOut,
                   );
                 }
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 14),
+                backgroundColor: Colors.deepOrange,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
               ),
               child: Text(
                 _currentPage == _onboardingData.length - 1
@@ -176,7 +178,8 @@ class _OnboardingScreenState extends State<OnboardingView> {
               "Skip",
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.grey,
+                color: Colors.deepOrange,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
@@ -185,15 +188,14 @@ class _OnboardingScreenState extends State<OnboardingView> {
     );
   }
 
-  // Helper Widget: Progress Dots
   Widget _buildDot(int index) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       margin: const EdgeInsets.symmetric(horizontal: 5),
       height: 8,
-      width: _currentPage == index ? 20 : 8,
+      width: _currentPage == index ? 24 : 8,
       decoration: BoxDecoration(
-        color: _currentPage == index ? Colors.deepPurple : Colors.grey.shade300,
+        color: _currentPage == index ? Colors.deepOrange : Colors.grey.shade300,
         borderRadius: BorderRadius.circular(4),
       ),
     );

@@ -1,12 +1,11 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:bus_ticket_app/core/common/snackbar/my_snackbar.dart';
-import 'package:bus_ticket_app/features/auth/domain/use_case/register_usecase.dart';
-import 'package:bus_ticket_app/features/auth/domain/use_case/upload_image_usecase.dart';
+import 'package:hamroBooking/core/common/snackbar/my_snackbar.dart';
+import 'package:hamroBooking/features/auth/domain/use_case/register_usecase.dart';
+import 'package:hamroBooking/features/auth/domain/use_case/upload_image_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-
 
 part 'register_event.dart';
 part 'register_state.dart';
@@ -21,12 +20,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   })  : _registerUseCase = registerUseCase,
         _uploadImageUsecase = uploadImageUsecase,
         super(RegisterState.initial()) {
-
     on<RegisterCustomer>(_onRegisterEvent);
     on<UploadImage>(_onLoadImage);
   }
-
-
 
   void _onRegisterEvent(
     RegisterCustomer event,

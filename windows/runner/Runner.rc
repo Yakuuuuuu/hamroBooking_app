@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.saurav" "\0"
-            VALUE "FileDescription", "bus_ticket_app" "\0"
+            VALUE "CompanyName", "com.samrat" "\0"
+            VALUE "FileDescription", "hamroBooking" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "bus_ticket_app" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.saurav. All rights reserved." "\0"
-            VALUE "OriginalFilename", "bus_ticket_app.exe" "\0"
-            VALUE "ProductName", "bus_ticket_app" "\0"
+            VALUE "InternalName", "hamroBooking" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.samrat. All rights reserved." "\0"
+            VALUE "OriginalFilename", "hamroBooking.exe" "\0"
+            VALUE "ProductName", "hamroBooking" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

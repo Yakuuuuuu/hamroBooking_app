@@ -13,7 +13,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Bus Ticket Application',
+      title: 'hamroBooking Application',
       theme: AppTheme.getApplicationTheme(isDarkMode: false),
       home: BlocProvider.value(
         value: getIt<SplashCubit>(),

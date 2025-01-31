@@ -1,10 +1,9 @@
-import 'package:bus_ticket_app/app/usecase/usecase.dart';
-import 'package:bus_ticket_app/core/error/failure.dart';
-import 'package:bus_ticket_app/features/auth/domain/entity/auth_entity.dart';
-import 'package:bus_ticket_app/features/auth/domain/repository/auth_repository.dart';
+import 'package:hamroBooking/app/usecase/usecase.dart';
+import 'package:hamroBooking/core/error/failure.dart';
+import 'package:hamroBooking/features/auth/domain/entity/auth_entity.dart';
+import 'package:hamroBooking/features/auth/domain/repository/auth_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-
 
 class RegisterUserParams extends Equatable {
   final String fname;
@@ -50,8 +49,7 @@ class RegisterUseCase implements UseCaseWithParams<void, RegisterUserParams> {
       email: params.email,
       password: params.password,
       phone: params.phone,
-      image:params.image,
-      
+      image: params.image,
     );
     return repository.registerCustomer(authEntity);
   }

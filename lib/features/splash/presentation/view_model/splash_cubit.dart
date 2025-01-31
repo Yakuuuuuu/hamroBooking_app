@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hamroBooking/features/onboarding/presentation/view/onboarding_view.dart';
 
-import '../../../onboarding/presentation/view/onboarding_view.dart';
 import '../../../onboarding/presentation/view_model/onbording_cubit.dart';
 
 class SplashCubit extends Cubit<void> {
