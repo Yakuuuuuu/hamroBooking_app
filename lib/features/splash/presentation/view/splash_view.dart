@@ -33,11 +33,11 @@ class _SplashViewState extends State<SplashView> {
                   child: Image.asset('assets/images/logo.png'),
                 ),
                 const Text(
-                  'hB', // Changed to "hB" for HamroBooking branding
+                  '', // Changed to "hB" for HamroBooking branding
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Colors.deepOrange,
+                    color: Colors.blue,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -51,7 +51,7 @@ class _SplashViewState extends State<SplashView> {
             bottom: 10,
             left: MediaQuery.of(context).size.width / 4,
             child: const Text(
-              'Developed by: Samrat Joshi',
+              'Developed by: Samrat phuyal',
               style: TextStyle(fontSize: 15),
             ),
           ),

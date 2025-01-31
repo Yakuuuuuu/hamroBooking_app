@@ -130,6 +130,7 @@ class LoginView extends StatelessWidget {
                         }
                       },
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue, // Changed to blue
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -142,6 +143,7 @@ class LoginView extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 18,
                               fontFamily: 'Brand Bold',
+                              color: Colors.white, // Ensuring text is readable
                             ),
                           ),
                         ),
@@ -167,14 +169,13 @@ class LoginView extends StatelessWidget {
                           child: const Text(
                             'Create Account',
                             style: TextStyle(
-                              color: Colors.deepPurple,
+                              color: Colors.blue,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                       ],
                     ),
-
                     const SizedBox(height: 20),
                     ElevatedButton.icon(
                       onPressed: () {

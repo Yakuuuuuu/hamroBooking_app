@@ -4,21 +4,19 @@ class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
 
   @override
-  State<DashboardView> createState() => _HomeViewState();
+  State<DashboardView> createState() => _DashboardViewState();
 }
 
-class _HomeViewState extends State<DashboardView> {
+class _DashboardViewState extends State<DashboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple,
-      // Dark blue background
+      backgroundColor: Colors.blue, // Deep purple background
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -26,7 +24,7 @@ class _HomeViewState extends State<DashboardView> {
           children: [
             // Greeting Section
             const Text(
-              "Hey Arthur! 👋",
+              "Welcome to HamroBooking! 🏨",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -35,14 +33,14 @@ class _HomeViewState extends State<DashboardView> {
             ),
             const SizedBox(height: 8),
             const Text(
-              "Explore the world with us.",
+              "Find the best hotels at your convenience.",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
               ),
             ),
             const SizedBox(height: 30),
-            // Trip Selection Card
+            // Hotel Search Card
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -57,110 +55,64 @@ class _HomeViewState extends State<DashboardView> {
                 ],
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Trip Type (Round Trip / One Way)
+                  const Text(
+                    "Where are you staying?",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  // Destination Field
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: "Enter city or hotel name",
+                      prefixIcon: const Icon(Icons.location_on, color: Colors.blue),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  // Date Selection
                   Row(
                     children: [
                       Expanded(
-                        child: Row(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Radio(
-                              value: true,
-                              groupValue: true, // Update this based on logic
-                              onChanged: (value) {},
-                              activeColor: const Color(0xFF1A1E78),
+                            const Text(
+                              "Check-in Date",
+                              style: TextStyle(color: Colors.grey),
                             ),
-                            const Text("Round Trip"),
+                            TextField(
+                              decoration: InputDecoration(
+                                hintText: "Select date",
+                                prefixIcon: const Icon(Icons.calendar_today, color: Colors.blue),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Radio(
-                              value: false,
-                              groupValue: true, // Update this based on logic
-                              onChanged: (value) {},
-                              activeColor: const Color(0xFF1A1E78),
-                            ),
-                            const Text("One Way"),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Divider(),
-                  // From and To Fields
-                  const Row(
-                    children: [
+                      const SizedBox(width: 15),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "From",
+                            const Text(
+                              "Check-out Date",
                               style: TextStyle(color: Colors.grey),
                             ),
-                            Text(
-                              "Kathmandu",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Icon(Icons.compare_arrows, color: Colors.grey),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "To",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            Text(
-                              "Pokhara",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Divider(),
-                  // Date Picker
-                  const Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "From",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            Text(
-                              "02-04-2022",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "To",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            Text(
-                              "04-05-2022",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            TextField(
+                              decoration: InputDecoration(
+                                hintText: "Select date",
+                                prefixIcon: const Icon(Icons.calendar_today, color: Colors.blue),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -168,13 +120,13 @@ class _HomeViewState extends State<DashboardView> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  // Search Button (Updated to Hotel Booking)
+                  // Search Button
                   ElevatedButton(
                     onPressed: () {
-                      // Add hotel booking logic
+                      // Add hotel booking search logic
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF57B660), // Green color
+                      backgroundColor: Colors.blue, // Deep purple button
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -182,7 +134,7 @@ class _HomeViewState extends State<DashboardView> {
                     ),
                     child: const Center(
                       child: Text(
-                        "Search Hotel", // Updated text
+                        "Search Hotels",
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
@@ -191,9 +143,9 @@ class _HomeViewState extends State<DashboardView> {
               ),
             ),
             const SizedBox(height: 30),
-            // Frequently Visited Section
+            // Popular Destinations
             const Text(
-              "Frequently Visited 🌴",
+              "Popular Destinations 🌍",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -205,9 +157,9 @@ class _HomeViewState extends State<DashboardView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Destination 1
-                _buildDestinationCard("Chitwan", "12 hotel rooms available"),
+                _buildDestinationCard("Pokhara", "20 hotels available"),
                 // Destination 2
-                _buildDestinationCard("Butwal", "14 hotel rooms available"),
+                _buildDestinationCard("Kathmandu", "50 hotels available"),
               ],
             ),
           ],
@@ -216,7 +168,7 @@ class _HomeViewState extends State<DashboardView> {
     );
   }
 
-  Widget _buildDestinationCard(String destination, String roomsAvailable) {
+  Widget _buildDestinationCard(String destination, String hotelsAvailable) {
     return Container(
       width: 150,
       padding: const EdgeInsets.all(15),
@@ -243,7 +195,7 @@ class _HomeViewState extends State<DashboardView> {
           ),
           const SizedBox(height: 5),
           Text(
-            roomsAvailable,
+            hotelsAvailable,
             style: const TextStyle(
               fontSize: 14,
               color: Colors.grey,

@@ -6,9 +6,10 @@ class AccountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, // Booking.com uses a clean white background
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.orange.shade700,
+        backgroundColor: const Color(0xFF003580), // Booking.com Primary Blue
         elevation: 0,
         title: const Text(
           'My Account',
@@ -24,10 +25,10 @@ class AccountView extends StatelessWidget {
         children: [
           // Profile Section
           Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.orange.shade100,
-              borderRadius: const BorderRadius.only(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+            decoration: const BoxDecoration(
+              color: Color(0xFF003580), // Booking.com Primary Blue
+              borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
               ),
@@ -43,17 +44,18 @@ class AccountView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     Text(
-                      'samrat phuyal',
+                      'Samrat Phuyal',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
+                        color: Colors.white, // White text for contrast
                       ),
                     ),
                     Text(
                       'samrat@gmail.com',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.black54,
+                        color: Colors.white70, // Slightly dimmed white
                       ),
                     ),
                   ],
@@ -87,7 +89,7 @@ class AccountView extends StatelessWidget {
     return ListTile(
       leading: Icon(
         icon,
-        color: isLogout ? Colors.red : Colors.orange.shade700,
+        color: isLogout ? Colors.red : const Color(0xFF0071c2), // Booking.com Accent Blue
       ),
       title: Text(
         title,
@@ -97,8 +99,7 @@ class AccountView extends StatelessWidget {
           color: isLogout ? Colors.red : Colors.black,
         ),
       ),
-      trailing:
-          const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
       onTap: () {
         // Add navigation logic here
       },

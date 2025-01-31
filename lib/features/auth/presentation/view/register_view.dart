@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,28 +17,15 @@ class _RegisterViewState extends State<RegisterView> {
   bool _termsAccepted = false;
   File? _selectedImage;
   final ImagePicker _imagePicker = ImagePicker();
-
-  Future<void> _pickImage(ImageSource source) async {
-    final pickedFile = await _imagePicker.pickImage(source: source);
-
-    if (pickedFile != null) {
-      setState(() {
-        _selectedImage = File(pickedFile.path);
-      });
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
-    }
-  }
-
-  final _gap = const SizedBox(height: 8);
   final _key = GlobalKey<FormState>();
+
   final _fnameController = TextEditingController();
   final _lnameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  // Check for camera permission
+
   Future<void> checkCameraPermission() async {
     if (await Permission.camera.request().isRestricted ||
         await Permission.camera.request().isDenied) {
@@ -54,13 +40,10 @@ class _RegisterViewState extends State<RegisterView> {
       if (image != null) {
         setState(() {
           _img = File(image.path);
-          // Send image to server
           context.read<RegisterBloc>().add(
                 UploadImage(file: _img!),
               );
         });
-      } else {
-        return;
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -70,301 +53,221 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white, 
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF003580), 
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
-        title: BlocBuilder<RegisterBloc, RegisterState>(
-          builder: (context, state) {
-            return Text(
-              'Sign Up',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            );
-          },
+        title: const Text(
+          'Sign Up',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Form(
-              key: _key,
-              child: Column(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                        backgroundColor: Colors.grey[300],
-                        context: context,
-                        isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: _key,
+            child: Column(
+              children: [
+                // Profile Picture Upload
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                      backgroundColor: Colors.white,
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
                         ),
-                        builder: (context) => Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  checkCameraPermission();
-                                  _browseImage(ImageSource.camera);
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(Icons.camera),
-                                label: const Text('Camera'),
-                              ),
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  _browseImage(ImageSource.gallery);
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(Icons.image),
-                                label: const Text('Gallery'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 130,
-                          width: 130,
-                          child: CircleAvatar(
-                            radius: 50,
-                            backgroundImage: _img != null
-                                ? FileImage(_img!)
-                                : const AssetImage(
-                                    'assets/images/profile.png',
-                                  ) as ImageProvider,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'Upload Picture',
-                          style: TextStyle(fontSize: 16),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 25),
-                  TextFormField(
-                    controller: _fnameController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        labelText: 'First Name',
-                        prefixIcon: const Icon(Icons.person)),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter first name';
-                      }
-                      return null;
-                    }),
-                  ),
-                  _gap,
-                  TextFormField(
-                    controller: _lnameController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
                       ),
-                      labelText: 'Last Name',
-                      prefixIcon: const Icon(Icons.person),
-                    ),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter last name';
-                      }
-                      return null;
-                    }),
-                  ),
-                  _gap,
-                  TextFormField(
-                    controller: _phoneController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        labelText: 'Phone Number',
-                        prefixIcon: const Icon(Icons.phone)),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter phone number';
-                      }
-                      return null;
-                    }),
-                  ),
-                  _gap,
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        labelText: 'Email',
-                        prefixIcon: const Icon(Icons.email)),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter email';
-                      }
-                      return null;
-                    }),
-                  ),
-                  _gap,
-                  TextFormField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        labelText: 'Password',
-                        prefixIcon: Icon(Icons.lock)),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter password';
-                      }
-                      return null;
-                    }),
-                  ),
-                  _gap,
-                  TextFormField(
-                    controller: _confirmPasswordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      labelText: 'Confirm Password',
-                      prefixIcon: Icon(Icons.lock),
-                    ),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please confirm password';
-                      }
-                      if (value != _passwordController.text) {
-                        return 'Passwords do not match';
-                      }
-                      return null;
-                    }),
-                  ),
-                  _gap,
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: _termsAccepted,
-                        activeColor: Colors.deepPurple,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _termsAccepted = value!;
-                          });
-                        },
-                      ),
-                      Expanded(
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'I accept all the ',
-                            style: const TextStyle(
-                                fontSize: 16, color: Colors.black),
-                            children: [
-                              TextSpan(
-                                text: 'Terms and Conditions.',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.deepPurple,
-                                  fontWeight: FontWeight.bold,
+                      builder: (context) => Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF0071c2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  _gap,
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (!_termsAccepted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  'Please accept the Terms and Conditions'),
+                              onPressed: () {
+                                checkCameraPermission();
+                                _browseImage(ImageSource.camera);
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(Icons.camera, color: Colors.white),
+                              label: const Text('Camera', style: TextStyle(color: Colors.white)),
                             ),
-                          );
-                          return;
-                        }
-                        if (_key.currentState!.validate()) {
-                          final registerState=
-                              context.read<RegisterBloc>().state;
-                          final imageName=registerState.imageName;
-                          context.read<RegisterBloc>().add(
-                                RegisterCustomer(
-                                  context: context,
-                                  fName: _fnameController.text,
-                                  lName: _lnameController.text,
-                                  phone: _phoneController.text,
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                  image: imageName,
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF0071c2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                              );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              30), // Set the border radius
+                              ),
+                              onPressed: () {
+                                _browseImage(ImageSource.gallery);
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(Icons.image, color: Colors.white),
+                              label: const Text('Gallery', style: TextStyle(color: Colors.white)),
+                            ),
+                          ],
                         ),
                       ),
-                      child: const Text(
-                        'Sign Up',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  _gap,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    );
+                  },
+                  child: Column(
                     children: [
-                      const Text('Already have an account?'),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context); // Navigate to Sign In
-                        },
-                        child: const Text(
-                          'Sign In',
-                          style: TextStyle(
-                            color: Colors.deepPurple,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundImage: _img != null
+                            ? FileImage(_img!)
+                            : const AssetImage('assets/images/profile.png') as ImageProvider,
                       ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Upload Profile Picture',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0071c2)),
+                      )
                     ],
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 25),
+
+                // Form Fields
+                _buildInputField(_fnameController, 'First Name', Icons.person),
+                _buildInputField(_lnameController, 'Last Name', Icons.person),
+                _buildInputField(_phoneController, 'Phone Number', Icons.phone),
+                _buildInputField(_emailController, 'Email', Icons.email),
+                _buildInputField(_passwordController, 'Password', Icons.lock, isPassword: true),
+                _buildInputField(_confirmPasswordController, 'Confirm Password', Icons.lock, isPassword: true),
+
+                // Terms and Conditions
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _termsAccepted,
+                      activeColor: const Color(0xFF003580),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _termsAccepted = value!;
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: RichText(
+                        text: const TextSpan(
+                          text: 'I accept all the ',
+                          style: TextStyle(fontSize: 14, color: Colors.black),
+                          children: [
+                            TextSpan(
+                              text: 'Terms and Conditions.',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF0071c2),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+
+                // Sign Up Button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (!_termsAccepted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Please accept the Terms and Conditions')),
+                        );
+                        return;
+                      }
+                      if (_key.currentState!.validate()) {
+                        final registerState = context.read<RegisterBloc>().state;
+                        final imageName = registerState.imageName;
+                        context.read<RegisterBloc>().add(
+                              RegisterCustomer(
+                                context: context,
+                                fName: _fnameController.text,
+                                lName: _lnameController.text,
+                                phone: _phoneController.text,
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                                image: imageName,
+                              ),
+                            );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF003580),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                    ),
+                    child: const Text(
+                      'Sign Up',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 15),
+
+                // Sign In Link
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Already have an account?'),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text(
+                        'Sign In',
+                        style: TextStyle(
+                          color: Color(0xFF0071c2),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildInputField(TextEditingController controller, String label, IconData icon, {bool isPassword = false}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: TextFormField(
+        controller: controller,
+        obscureText: isPassword,
+        decoration: InputDecoration(
+          labelText: label,
+          prefixIcon: Icon(icon, color: Color(0xFF0071c2)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+        ),
+        validator: (value) => value!.isEmpty ? 'Please enter $label' : null,
       ),
     );
   }
